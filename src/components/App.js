@@ -12,6 +12,7 @@ class App extends Component {
       myAppointments: [],
     };
   }
+
   componentDidMount() {
     fetch(
       "https://gist.githubusercontent.com/planetoftheweb/bcca7bc277762bb14249f6195fe5af3d/raw/f7df629db4949aff136f5147a7b7e826de2c7c3d/ri-data.json"
@@ -36,7 +37,7 @@ class App extends Component {
               <div className="container">
                 <AddAppointments />
                 <SearchAppointments />
-                <ListAppointments />
+                <ListAppointments appointments={this.state.myAppointments} />
               </div>
             </div>
           </div>
