@@ -19,11 +19,19 @@ class App extends Component {
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.addAppointment = this.addAppointment.bind(this);
+    this.changeOrder = this.changeOrder.bind(this);
   }
 
   toggleForm() {
     this.setState({
       formDisplay: !this.state.formDisplay,
+    });
+  }
+
+  changeOrder(order, dir) {
+    this.setState({
+      orderBy: order,
+      orderDir: dir,
     });
   }
 
@@ -73,10 +81,7 @@ class App extends Component {
     }
 
     filteredApts.sort((a, b) => {
-      if (
-        a[this.state.orderBy].toLowerCase() <
-        b[this.state.orderBy].toLowerCase()
-      ) {
+      if (a[this.state.orderBy] < b[this.state.orderBy]) {
         return -1 * order;
       } else {
         return 1 * order;
@@ -93,7 +98,11 @@ class App extends Component {
                   toggleForm={this.toggleForm}
                   addAppointment={this.addAppointment}
                 />
-                <SearchAppointments />
+                <SearchAppointments
+                  orderBy={this.state.orderBy}
+                  orderDir={this.state.orderDir}
+                  changeOrder={this.changeOrder}
+                />
                 <ListAppointments
                   appointments={filteredApts}
                   deleteAppointment={this.deleteAppointment}
